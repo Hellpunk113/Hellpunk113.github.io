@@ -1,359 +1,231 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hans">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0c0f15">
-  <meta name="description" content="Hellpunk113 的民主公民主义学术笔记：关于民主授权、行政连续性、技术治理与权力约束的非行动性讨论。">
-  <title>Democratic Civicism · Hellpunk113</title>
+  <meta name="theme-color" content="#f4f5f7">
+  <meta name="description" content="公民新右翼学术讨论档案">
+  <title>公民新右翼学术讨论档案</title>
   <style>
-    :root {
-      --ink: #eef1f5;
-      --muted: #a8b0bd;
-      --dim: #717b89;
-      --line: rgba(255,255,255,.13);
-      --panel: rgba(20,24,32,.72);
-      --panel-strong: rgba(28,33,43,.86);
-      --red: #d95e68;
-      --red-bright: #ff8e91;
-      --blue: #86b7ff;
-      --mint: #a9e8d5;
-      --shadow: 0 24px 80px rgba(0,0,0,.36);
-      --radius-xl: 34px;
-      --radius-lg: 24px;
-      --radius-md: 16px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(217,94,104,.16), transparent 30rem),
-        radial-gradient(circle at 90% 14%, rgba(134,183,255,.14), transparent 32rem),
-        #0c0f15;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .34;
-      background-image: linear-gradient(rgba(255,255,255,.024) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.024) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, black, transparent 76%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-
-    .liquid-orb { position: absolute; border-radius: 50%; filter: blur(3px); pointer-events: none; mix-blend-mode: screen; opacity: .76; }
-    .orb-a { width: 22rem; height: 22rem; top: 6rem; left: -12rem; background: radial-gradient(circle at 35% 30%, rgba(255,167,156,.82), rgba(174,50,81,.3) 50%, transparent 72%); animation: floatA 15s ease-in-out infinite; }
-    .orb-b { width: 30rem; height: 30rem; top: 16rem; right: -17rem; background: radial-gradient(circle at 40% 35%, rgba(149,197,255,.7), rgba(70,94,173,.24) 52%, transparent 72%); animation: floatB 18s ease-in-out infinite; }
-    .orb-c { width: 14rem; height: 14rem; top: 40rem; left: 45%; background: radial-gradient(circle, rgba(169,232,213,.4), transparent 70%); animation: floatC 20s ease-in-out infinite; }
-
-    @keyframes floatA { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(7rem,5rem,0) scale(1.12); } }
-    @keyframes floatB { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-6rem,-3rem,0) scale(.9); } }
-    @keyframes floatC { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(2rem,-5rem,0); } }
-
-    .topbar {
-      position: fixed; z-index: 20; top: 18px; left: 50%; transform: translateX(-50%);
-      width: min(1120px, calc(100% - 28px)); padding: 10px 12px 10px 18px;
-      display: flex; align-items: center; justify-content: space-between; gap: 20px;
-      border: 1px solid var(--line); border-radius: 999px; background: rgba(18,22,30,.64);
-      box-shadow: 0 14px 44px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.08);
-      backdrop-filter: blur(20px) saturate(130%);
-    }
-    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 750; letter-spacing: -.02em; }
-    .brand-mark { width: 29px; height: 29px; border-radius: 11px; background: linear-gradient(145deg, var(--red-bright), #9b304a 68%); box-shadow: 0 5px 22px rgba(217,94,104,.4), inset 1px 1px 0 rgba(255,255,255,.35); position: relative; }
-    .brand-mark::after { content: ""; position: absolute; width: 9px; height: 9px; border-radius: 50%; right: 5px; top: 5px; background: rgba(255,255,255,.76); filter: blur(2px); }
-    .brand small { display: block; color: var(--dim); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 650; }
-    nav { display: flex; align-items: center; gap: 5px; }
-    nav a { padding: 8px 12px; color: var(--muted); font-size: .82rem; border-radius: 999px; transition: background .25s ease, color .25s ease; }
-    nav a:hover, nav a:focus-visible { color: var(--ink); background: rgba(255,255,255,.1); outline: none; }
-    .nav-note { color: var(--red-bright); font-size: .72rem; border: 1px solid rgba(255,142,145,.3); padding: 7px 10px; border-radius: 999px; }
-
-    main { position: relative; }
-    .hero { min-height: 760px; padding: 170px 0 100px; position: relative; display: grid; align-items: center; }
-    .hero-layout { display: grid; grid-template-columns: 1.05fr .95fr; gap: 70px; align-items: center; }
-    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--red-bright); font-size: .75rem; font-weight: 760; letter-spacing: .16em; text-transform: uppercase; }
-    .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; box-shadow: 0 0 10px currentColor; }
-    h1 { margin: 22px 0 20px; max-width: 760px; font-size: clamp(3.2rem, 7vw, 6.9rem); line-height: .97; letter-spacing: -.075em; font-weight: 780; text-wrap: balance; }
-    h1 span { display: block; color: transparent; background: linear-gradient(105deg, #fff 8%, #ffabb0 48%, #a9caff 92%); -webkit-background-clip: text; background-clip: text; }
-    .hero-lede { max-width: 650px; margin: 0; color: #c6ccd5; font-size: clamp(1.04rem, 1.8vw, 1.3rem); line-height: 1.75; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    .button { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 17px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: rgba(255,255,255,.07); cursor: pointer; transition: transform .25s ease, background .25s ease, border-color .25s ease; }
-    .button:hover, .button:focus-visible { transform: translateY(-2px); background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.3); outline: none; }
-    .button.primary { background: linear-gradient(110deg, rgba(217,94,104,.85), rgba(122,65,129,.88)); border-color: rgba(255,188,190,.34); box-shadow: 0 10px 28px rgba(169,55,84,.26); }
-
-    .hero-panel { position: relative; min-height: 480px; display: flex; align-items: center; justify-content: center; }
-    .hero-panel::before { content: ""; position: absolute; width: 25rem; height: 25rem; border-radius: 46% 54% 63% 37% / 45% 38% 62% 55%; background: linear-gradient(145deg, rgba(255,255,255,.2), rgba(255,142,145,.16) 36%, rgba(134,183,255,.1) 70%, transparent); filter: blur(1px); transform: rotate(16deg); box-shadow: inset 0 0 40px rgba(255,255,255,.1), 0 0 100px rgba(217,94,104,.12); animation: liquidShape 12s ease-in-out infinite; }
-    .hero-panel::after { content: ""; position: absolute; width: 18rem; height: 9rem; top: 6rem; right: 2rem; border-radius: 50%; background: rgba(153,200,255,.2); filter: blur(34px); transform: rotate(-24deg); }
-    @keyframes liquidShape { 0%,100% { border-radius: 46% 54% 63% 37% / 45% 38% 62% 55%; transform: rotate(16deg) scale(1); } 50% { border-radius: 61% 39% 45% 55% / 56% 60% 40% 44%; transform: rotate(28deg) scale(1.08); } }
-    .glass-note { position: relative; z-index: 1; width: min(420px, 100%); padding: 28px; border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius-xl); background: linear-gradient(140deg, rgba(255,255,255,.14), rgba(255,255,255,.045)); box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.18); backdrop-filter: blur(26px) saturate(125%); transform: rotate(3deg); }
-    .glass-note::before { content: ""; position: absolute; inset: 1px; border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(255,255,255,.15), transparent 27%, transparent 72%, rgba(255,255,255,.07)); opacity: .8; }
-    .glass-note > * { position: relative; }
-    .note-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
-    .note-pip { width: 9px; height: 9px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 16px var(--mint); }
-    .glass-note h2 { margin: 55px 0 18px; font-size: 2rem; line-height: 1.1; letter-spacing: -.04em; }
-    .glass-note p { margin: 0; color: #c2cbd5; font-size: .95rem; }
-    .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--dim); font-size: .76rem; }
-
-    section { padding: 106px 0; position: relative; }
-    .section-head { max-width: 720px; margin-bottom: 38px; }
-    .section-kicker { color: var(--blue); font-size: .74rem; font-weight: 760; letter-spacing: .16em; text-transform: uppercase; }
-    h2 { margin: 12px 0 12px; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.07; letter-spacing: -.055em; }
-    .section-head p { margin: 0; color: var(--muted); font-size: 1.02rem; }
-    .boundary { padding-top: 36px; }
-    .boundary-card { display: grid; grid-template-columns: 1fr 1.6fr; gap: 30px; padding: 28px 30px; border: 1px solid rgba(255,142,145,.28); border-radius: var(--radius-lg); background: linear-gradient(105deg, rgba(125,38,57,.24), rgba(255,255,255,.04)); box-shadow: inset 0 1px 0 rgba(255,255,255,.07); }
-    .boundary-card strong { color: #ffd2d1; font-size: 1.05rem; }
-    .boundary-card p { margin: 0; color: #d4d8df; }
-
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .card { min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); box-shadow: inset 0 1px 0 rgba(255,255,255,.07); transition: transform .3s ease, border-color .3s ease, background .3s ease; }
-    .card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.27); background: var(--panel-strong); }
-    .card-number { color: var(--red-bright); font-size: .76rem; font-weight: 760; letter-spacing: .14em; }
-    .card h3 { margin: 30px 0 10px; font-size: 1.25rem; letter-spacing: -.03em; }
-    .card p { margin: 0; color: var(--muted); font-size: .94rem; }
-
-    .framework { overflow: hidden; }
-    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; align-items: stretch; }
-    .flow-item { position: relative; padding: 22px 18px; min-height: 190px; border-radius: var(--radius-md); border: 1px solid var(--line); background: rgba(255,255,255,.055); }
-    .flow-item:not(:last-child)::after { content: "→"; position: absolute; z-index: 2; right: -18px; top: 50%; transform: translateY(-50%); color: var(--red-bright); font-size: 1.3rem; }
-    .flow-item b { display: block; margin-bottom: 24px; color: var(--blue); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; }
-    .flow-item h3 { margin: 0 0 9px; font-size: 1.05rem; }
-    .flow-item p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.55; }
-    .framework-caption { margin: 22px 0 0; color: var(--dim); font-size: .84rem; }
-
-    .chapters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .chapter { border: 1px solid var(--line); border-radius: var(--radius-md); background: rgba(255,255,255,.045); overflow: hidden; }
-    .chapter summary { display: flex; align-items: center; gap: 13px; padding: 17px 18px; cursor: pointer; list-style: none; font-weight: 650; }
-    .chapter summary::-webkit-details-marker { display: none; }
-    .chapter summary::after { content: "+"; margin-left: auto; color: var(--red-bright); font-size: 1.2rem; font-weight: 400; }
-    .chapter[open] summary::after { content: "−"; }
-    .chapter summary:hover { background: rgba(255,255,255,.06); }
-    .chapter-num { color: var(--red-bright); font-size: .72rem; font-variant-numeric: tabular-nums; }
-    .chapter p { padding: 0 18px 18px 49px; margin: 0; color: var(--muted); font-size: .88rem; }
-
-    .questions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .question { padding: 28px; border-radius: var(--radius-lg); background: linear-gradient(145deg, rgba(133,181,255,.09), rgba(255,255,255,.04)); border: 1px solid var(--line); }
-    .question h3 { margin: 0 0 10px; font-size: 1.15rem; }
-    .question p { margin: 0; color: var(--muted); }
-    .question.wide { grid-column: span 2; background: linear-gradient(145deg, rgba(169,232,213,.1), rgba(255,255,255,.04)); }
-
-    .about { display: grid; grid-template-columns: .75fr 1.25fr; gap: 60px; align-items: start; }
-    .about-intro { font-size: 1.55rem; line-height: 1.35; letter-spacing: -.035em; }
-    .about-copy { color: var(--muted); }
-    .about-copy p { margin: 0 0 16px; }
-    .signature { margin-top: 28px; color: var(--red-bright); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
-
-    footer { padding: 50px 0 70px; border-top: 1px solid var(--line); color: var(--dim); font-size: .82rem; }
-    footer .footer-row { display: flex; justify-content: space-between; gap: 20px; }
-    .footer-row a { color: var(--muted); }
-    .footer-row a:hover { color: var(--ink); }
-
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .75s ease, transform .75s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-    .cursor-glow { position: fixed; z-index: -1; width: 360px; height: 360px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(255,255,255,.055), transparent 68%); transform: translate(-50%, -50%); left: var(--mx, 50%); top: var(--my, 20%); transition: left .2s ease-out, top .2s ease-out; }
-
-    @media (max-width: 900px) {
-      .hero-layout, .about { grid-template-columns: 1fr; gap: 35px; }
-      .hero { min-height: auto; padding-top: 140px; }
-      .hero-panel { min-height: 390px; }
-      .cards { grid-template-columns: 1fr; }
-      .flow { grid-template-columns: 1fr; }
-      .flow-item { min-height: auto; }
-      .flow-item:not(:last-child)::after { content: "↓"; right: auto; top: auto; bottom: -22px; left: 50%; transform: translateX(-50%); }
-      .chapters { grid-template-columns: repeat(2, 1fr); }
-      .boundary-card { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 620px) {
-      .shell { width: min(100% - 28px, 560px); }
-      .topbar { top: 10px; padding-left: 13px; }
-      nav a { display: none; }
-      .nav-note { font-size: .65rem; }
-      h1 { font-size: 3.35rem; }
-      section { padding: 75px 0; }
-      .chapters, .questions { grid-template-columns: 1fr; }
-      .question.wide { grid-column: span 1; }
-      footer .footer-row { flex-direction: column; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; transition-duration: .001ms !important; }
-      .reveal { opacity: 1; transform: none; }
+    :root { --paper:#fff; --ink:#20242b; --muted:#68717d; --line:#d9dde3; --blue:#1f5f9b; --blue2:#eaf2fa; --nav:#f4f5f7; --shadow:0 12px 30px rgba(32,36,43,.12); }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-height:100%; background:var(--nav); color:var(--ink); font-family:"PMingLiU","MingLiU","Noto Serif CJK SC","Source Han Serif SC",serif; }
+    button,input,select { font:inherit; }
+    button { cursor:pointer; }
+    .topbar { height:58px; display:flex; align-items:center; gap:16px; padding:0 24px; background:#fff; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; border:0; background:transparent; color:var(--ink); padding:0; }
+    .brand img { width:32px; height:32px; object-fit:contain; }
+    .brand span { font-size:16px; letter-spacing:.04em; }
+    .top-spacer { flex:1; }
+    .utility { color:var(--muted); font-size:13px; }
+    .lang { border:1px solid var(--line); border-radius:3px; background:#fff; color:var(--ink); padding:7px 9px; }
+    .menu-button { width:36px; height:34px; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:3px; font-size:20px; line-height:1; }
+    main { min-height:calc(100vh - 58px); }
+    .home { max-width:980px; min-height:calc(100vh - 58px); margin:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:52px 24px 90px; }
+    .home-logo { width:min(210px,42vw); height:min(210px,42vw); object-fit:contain; margin-bottom:25px; }
+    h1,h2,h3,p { margin-top:0; }
+    .home h1 { font-size:clamp(26px,4vw,42px); letter-spacing:.14em; font-weight:500; margin-bottom:10px; }
+    .subtitle { color:var(--muted); font-size:14px; letter-spacing:.09em; margin-bottom:30px; }
+    .search { width:min(680px,100%); display:flex; border:1px solid #c8cdd4; background:#fff; border-radius:3px; box-shadow:0 2px 6px rgba(32,36,43,.06); }
+    .search input { flex:1; min-width:0; border:0; outline:0; padding:14px 16px; color:var(--ink); background:transparent; }
+    .search button { border:0; border-left:1px solid var(--line); background:#f8f9fa; color:var(--blue); padding:0 19px; }
+    .home-actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:16px; }
+    .action { border:1px solid #bcc5d0; background:#fff; color:var(--ink); padding:10px 16px; border-radius:3px; }
+    .action.primary { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .approach { width:min(800px,100%); margin-top:42px; padding:19px 22px; border-left:4px solid var(--blue); background:#fff; box-shadow:0 2px 8px rgba(32,36,43,.05); line-height:1.9; font-size:14px; }
+    .home-footer { margin-top:28px; color:var(--muted); font-size:12px; }
+    .chapter-page { max-width:1080px; margin:auto; padding:40px 28px 90px; }
+    .chapter-head { display:flex; align-items:flex-start; gap:15px; border-bottom:1px solid var(--line); padding-bottom:21px; margin-bottom:30px; }
+    .chapter-head img { width:44px; height:44px; object-fit:contain; flex:none; }
+    .eyebrow { color:var(--blue); font-size:12px; letter-spacing:.1em; margin-bottom:8px; }
+    .chapter-head h1 { font-size:clamp(25px,4vw,39px); font-weight:500; margin-bottom:5px; }
+    .chapter-head p { color:var(--muted); margin-bottom:0; font-size:14px; }
+    .chapter-body { background:#fff; border:1px solid var(--line); padding:clamp(25px,5vw,56px); box-shadow:var(--shadow); }
+    .chapter-body h2 { font-size:25px; font-weight:500; border-bottom:1px solid var(--line); padding-bottom:15px; margin-bottom:26px; }
+    .chapter-body p { font-size:16px; line-height:2.05; margin-bottom:21px; text-align:justify; }
+    .chapter-note { padding:15px 18px; background:var(--blue2); border-left:3px solid var(--blue); color:#304a64; margin:29px 0; font-size:14px; line-height:1.8; }
+    .chapter-nav { display:flex; justify-content:space-between; gap:12px; margin-top:18px; }
+    .chapter-nav button { border:1px solid #bcc5d0; background:#fff; padding:10px 14px; border-radius:3px; color:var(--ink); }
+    .chapter-nav button:disabled { opacity:.35; cursor:not-allowed; }
+    .drawer-backdrop { position:fixed; inset:0; background:rgba(20,25,32,.23); z-index:20; }
+    .drawer { position:fixed; z-index:21; inset:0 auto 0 0; width:min(390px,88vw); background:#fff; border-right:1px solid var(--line); box-shadow:10px 0 32px rgba(20,25,32,.18); transform:translateX(-105%); transition:transform .22s ease; overflow:auto; }
+    .drawer.open { transform:translateX(0); }
+    .drawer-head { display:flex; align-items:center; justify-content:space-between; padding:21px 20px; border-bottom:1px solid var(--line); }
+    .drawer-head h2 { font-size:18px; font-weight:500; margin:0; }
+    .close { border:0; background:transparent; font-size:24px; color:var(--muted); }
+    .toc { padding:9px; }
+    .toc button { width:100%; display:flex; gap:12px; text-align:left; align-items:baseline; border:0; border-bottom:1px solid #eef0f2; background:#fff; padding:14px 11px; color:var(--ink); }
+    .toc button:hover { background:var(--blue2); }
+    .toc-num { color:var(--blue); font-size:13px; width:24px; }
+    .toc-title { flex:1; font-size:14px; }
+    .modal-backdrop { position:fixed; inset:0; z-index:40; display:flex; align-items:center; justify-content:center; padding:20px; background:rgba(19,24,31,.54); }
+    .modal { width:min(560px,100%); background:#fff; border:1px solid #b8c0ca; box-shadow:0 18px 60px rgba(0,0,0,.28); padding:30px; }
+    .modal h2 { font-size:23px; font-weight:500; margin-bottom:18px; }
+    .modal p { font-size:14px; line-height:1.9; margin-bottom:14px; }
+    .modal-foot { display:flex; align-items:center; justify-content:space-between; gap:14px; border-top:1px solid var(--line); margin-top:23px; padding-top:19px; }
+    .modal-foot small { color:var(--muted); }
+    .confirm { border:1px solid var(--blue); background:var(--blue); color:#fff; padding:10px 15px; border-radius:3px; }
+    .confirm:disabled { background:#aab5c0; border-color:#aab5c0; cursor:not-allowed; }
+    .result-list { width:min(680px,100%); margin-top:13px; background:#fff; border:1px solid var(--line); }
+    .result-list button { width:100%; padding:12px 16px; text-align:left; border:0; border-bottom:1px solid #edf0f2; background:#fff; }
+    .result-list button:last-child { border-bottom:0; }
+    .result-list button:hover { background:var(--blue2); }
+    .result-list strong { color:var(--blue); margin-right:12px; }
+    .hidden { display:none !important; }
+    @media (max-width:650px) {
+      .topbar { padding:0 14px; gap:10px; }
+      .brand span { font-size:13px; }
+      .utility { display:none; }
+      .chapter-page { padding:25px 13px 60px; }
+      .chapter-body { padding:23px 18px; }
+      .chapter-body p { font-size:15px; line-height:1.95; text-align:left; }
+      .modal { padding:23px 19px; }
     }
   </style>
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
-  <div class="liquid-orb orb-a" aria-hidden="true"></div>
-  <div class="liquid-orb orb-b" aria-hidden="true"></div>
-  <div class="liquid-orb orb-c" aria-hidden="true"></div>
-
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="回到主页顶部">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>Hellpunk113<small>personal research notes</small></span>
-    </a>
-    <nav aria-label="主要导航">
-      <a href="#thesis">摘要</a>
-      <a href="#framework">框架</a>
-      <a href="#chapters">章节</a>
-      <a href="#about">说明</a>
-      <span class="nav-note">NON-ACTIONAL</span>
-    </nav>
+    <button class="brand" id="brandButton" aria-label="回到档案首页"><img src="assets/tta-logo.png" alt="TTA"><span id="brandText">公民新右翼学术讨论档案</span></button>
+    <div class="top-spacer"></div>
+    <span class="utility" id="utilityText">个人学术档案 · 仅供阅读与讨论</span>
+    <select class="lang" id="language" aria-label="语言">
+      <option value="zh-Hans">简体中文</option>
+      <option value="zh-Hant">繁體中文</option>
+      <option value="en">English</option>
+    </select>
+    <button class="menu-button" id="menuButton" aria-label="打开章节目录">☰</button>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="shell hero-layout">
-        <div class="reveal">
-          <div class="eyebrow">Academic note · 01</div>
-          <h1>Democratic<span>Civicism</span></h1>
-          <p class="hero-lede">一份关于民主授权、行政连续性、技术治理与权力约束的思想实验。它不提供政治口号，而是把“谁决定方向、谁负责执行、谁监督权力”拆成可以讨论的问题。</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#thesis">开始阅读 <span aria-hidden="true">↘</span></a>
-            <a class="button" href="#chapters">浏览 15 个主题</a>
-          </div>
-        </div>
-        <div class="hero-panel reveal" aria-label="文稿信息卡">
-          <article class="glass-note">
-            <div class="note-top"><span>Working paper / 2026</span><span class="note-pip" title="非行动性学术讨论"></span></div>
-            <h2>民主公民主义</h2>
-            <p>价值方向由公民授权，执行方案交给专业机构；行政连续性与权力监督，则构成这份文本的制度张力。</p>
-            <div class="note-footer"><span>读本：Democratic_Civicism_final.pdf</span><span>17 pp.</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
+  <main id="app"></main>
 
-    <section class="boundary" id="thesis">
-      <div class="shell">
-        <div class="boundary-card reveal">
-          <strong>阅读边界 / Reading boundary</strong>
-          <p>本文是非行动性的政治哲学与制度思想讨论，不是宣言、组织纲领、政治动员或现实实施建议。作者明确维护中国现状与领导；页面将原文视为可被比较、批评和反思的文本，而不是要求读者接受的现实方案。</p>
-        </div>
-        <div class="section-head reveal" style="margin-top: 72px;">
-          <div class="section-kicker">A short reading</div>
-          <h2>把“民主”从选人问题，转成定目标问题。</h2>
-          <p>原文的核心思想实验，是把公民的政治主权理解为对国家目标、价值排序与可承受代价的周期性授权，再把专业执行交由相对稳定的行政与技术机构。</p>
-        </div>
-        <div class="cards">
-          <article class="card reveal"><div class="card-number">01 / DIRECTION</div><h3>公民决定方向</h3><p>五年计划在这里不是传统的生产命令，而是对公共目标、价值优先级与财政方向的民主授权。</p></article>
-          <article class="card reveal"><div class="card-number">02 / EXECUTION</div><h3>专业机构负责抵达</h3><p>技术官僚提供数据、风险评估与实施路径，但不应自行替公民决定“什么值得追求”。</p></article>
-          <article class="card reveal"><div class="card-number">03 / LIMITS</div><h3>权力必须可被约束</h3><p>政府、专业机关、监察机构、军队与利益团体都被放入法律和程序的边界内，避免单一中心永久化。</p></article>
-        </div>
-      </div>
-    </section>
+  <div id="drawerLayer" class="hidden">
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="drawer" id="drawer" aria-label="章节目录">
+      <div class="drawer-head"><h2 id="tocHeading">章节目录</h2><button class="close" id="closeDrawer" aria-label="关闭">×</button></div>
+      <nav class="toc" id="toc"></nav>
+    </aside>
+  </div>
 
-    <section class="framework" id="framework">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="section-kicker">The architecture</div>
-          <h2>一条从授权到问责的制度链</h2>
-          <p>这不是现成制度的蓝图，而是把原文中的关键概念放在一条可检验的逻辑链上，方便继续追问其中的冲突与代价。</p>
-        </div>
-        <div class="flow reveal">
-          <article class="flow-item"><b>01 · Voice</b><h3>国民会议</h3><p>从基层、专业、行业和区域讨论中提出问题与方案。</p></article>
-          <article class="flow-item"><b>02 · Mandate</b><h3>五年授权</h3><p>全体国民选择国家目标与价值排序，而不是只选择代理人。</p></article>
-          <article class="flow-item"><b>03 · Continuity</b><h3>常设政府</h3><p>行政体系不因周期性目标变化而整体重置，保持公共服务连续。</p></article>
-          <article class="flow-item"><b>04 · Expertise</b><h3>技术执行</h3><p>专业机构把目标翻译为预算、工程、法规与可评估的执行方案。</p></article>
-          <article class="flow-item"><b>05 · Constraint</b><h3>监察与司法</h3><p>伦理监察、司法程序和宪制边界防止执行者转化为新的主权者。</p></article>
-        </div>
-        <p class="framework-caption reveal">核心张力：目标需要民主正当性，执行需要专业连续性，而专业连续性不能演化为脱离授权的政治权力。</p>
-      </div>
+  <div class="modal-backdrop hidden" id="disclaimer">
+    <section class="modal" role="dialog" aria-modal="true">
+      <h2 id="disclaimerTitle">进入前说明</h2>
+      <p id="disclaimerP1">本档案是个人对政治思想、制度概念与政治哲学文本的学术整理，不代表任何组织、政党、政府或现实政治行动，也不构成动员、组织、政策指令或实施方案。</p>
+      <p id="disclaimerP2">作者明确维护中华人民共和国现状、中国共产党领导、国家统一与社会稳定。页面内容仅用于概念阅读、比较与批评，不应被理解为要求改变中国现有政治秩序。</p>
+      <p id="disclaimerP3">部分概念来自个人思想实验，可能存在争议、遗漏或内部张力。请将其当作可检验、可质疑的档案材料阅读。</p>
+      <div class="modal-foot"><small id="countdown">请等待 3 秒</small><button class="confirm" id="confirm" disabled>我已阅读，进入档案</button></div>
     </section>
-
-    <section id="chapters">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="section-kicker">Contents / 15 notes</div>
-          <h2>从起源到边界，逐章阅读</h2>
-          <p>点击章节卡片展开摘要。摘要经过重新编排，重点呈现问题结构，不把原文语气直接当作结论。</p>
-        </div>
-        <div class="chapters">
-          <details class="chapter reveal"><summary><span class="chapter-num">01</span>起源与总论</summary><p>反思政党竞争与行政反复之间的张力，提出让公民决定方向、专业机关负责执行的分工。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">02</span>国家、国民与政治主权</summary><p>将国家理解为公共服务与长期目标的行政工具，把最高政治主权放在全体国民的周期性选择上。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">03</span>民主制度下的五年计划</summary><p>五年周期被理解为价值排序、公共支出与社会方向的民主授权，而非单一经济生产计划。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">04</span>五级国民会议制度</summary><p>从基层到全国逐级提出、比较、辩论、修订政策方案，最后由全体国民做出选择。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">05</span>常设政府与行政国家</summary><p>行政部门保持长期连续，政府负责把获得授权的方向转化为任务，而非拥有独立路线。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">06</span>技术官僚体系</summary><p>强调专业自主与政治主权的区别：技术机构可以决定如何做，却不能独自决定为何做。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">07</span>法团制度与阶级调和</summary><p>承认劳动、资本、行业与消费者之间的真实冲突，让制度化谈判服务于民主授权，而非以民族或国家口号消解冲突。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">08</span>伦理国会与国家监察</summary><p>设置独立监察机制，聚焦腐败、利益冲突、滥权、程序与基本权利保护，但不让监察机关无限创造政治标准。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">09</span>法律、司法与权力约束</summary><p>宪法与司法程序高于政府、技术机关、监察机构、军队和法团，确保调查与定罪不被混为一谈。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">10</span>政府失效与技术托管</summary><p>讨论行政失效时的短期技术托管，但强调其必须以恢复公共能力与重新进入民主授权程序为终点。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">11</span>军队与宪政保险</summary><p>军队不参与日常治理；文本把多方相互制衡设想为防止任何单一集团夺取永久权力的保险结构。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">12</span>民族、文化与反进步主义</summary><p>批评以身份政治替代公共政策，同时提出个人法律平等与文化自由应当和国家的行政权力分开。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">13</span>宗教自由与普遍人权</summary><p>承认宗教信仰自由，但不允许宗教传统成为压制他人身体自主、儿童保护与基本权利的理由。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">14</span>性犯罪、儿童保护与身体权利</summary><p>围绕性别中立、同意、未成年人保护、刑罚边界与司法复核讨论国家如何保护身体权利。</p></details>
-          <details class="chapter reveal"><summary><span class="chapter-num">15</span>结述：把权力还给民主</summary><p>以“价值问题民主化、技术问题专业化、阶级冲突制度化、行政体系常设化、国家权力受监督”概括全文。</p></details>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="section-kicker">Questions to carry forward</div>
-          <h2>比答案更值得留下的三个问题</h2>
-        </div>
-        <div class="questions">
-          <article class="question reveal"><h3>谁有权定义“人民的选择”？</h3><p>如果政策选择脱离政党竞争，它如何保证信息对称、少数意见可见，以及不同利益仍能被公平表达？</p></article>
-          <article class="question reveal"><h3>专业自主如何不变成专业统治？</h3><p>技术人员需要稳定判断空间，但稳定空间必须伴随透明的指标、公开的理由和可追责的程序。</p></article>
-          <article class="question wide reveal"><h3>危机托管何时结束？</h3><p>任何“临时”权力都可能因为危机叙事而延长。真正重要的不是只设计接管机制，而是预先写清恢复条件、时间边界、司法审查和重新授权的路径。</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="shell about">
-        <div class="reveal">
-          <div class="section-kicker">About this page</div>
-          <p class="about-intro">这是一页个人研究笔记，不是组织主页，也不是现实政治行动的入口。</p>
-          <div class="signature">Hellpunk113 · Personal archive</div>
-        </div>
-        <div class="about-copy reveal">
-          <p>本页根据《新右翼宣言 / 民主公民主义》整理而成，尝试把原文从“宣言式写作”转成更适合阅读、比较与批评的学术摘要。</p>
-          <p>页面不要求读者接受其中任何制度设想。它保留了文本的核心概念，也主动把潜在风险放回讨论中：民主授权可能被简化，技术治理可能脱离人民，监察机制可能成为新的权力中心，紧急托管也可能无限期延长。</p>
-          <p>阅读时可以将它与民主理论、行政国家、技术官僚制、法团主义、宪政主义和政治思想史中的其他文本并置，而不是把它当作现实政治路线。</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="shell footer-row">
-      <span>© 2026 Hellpunk113 · Democratic Civicism</span>
-      <a href="#top">回到顶部 ↑</a>
-    </div>
-  </footer>
+  </div>
 
   <script>
-    const root = document.documentElement;
-    window.addEventListener('pointermove', (event) => {
-      root.style.setProperty('--mx', `${event.clientX}px`);
-      root.style.setProperty('--my', `${event.clientY}px`);
-    }, { passive: true });
+    const chapters = [
+      { n:"01", title:"起源与总论", en:"Origins and General Theory", summary:"关于政党竞争、民主授权、行政连续性、技术官僚与法团调和的总论。", paragraphs:[
+        "政党是一个非常古老的概念。有相同兴趣的人、相同政见的人、有着相同经济分配利益的人，自然而然地站在一起，为了自己所代表的阶级而斗争，又或为了自己造福人类的理想而斗争，又可能是某个独裁者的白手套。但无论如何，现代的民主必须通过政党竞争、政治人物轮替才能延续。每届政府的重新改变都会导致行政体系形成目标的大转弯，使得发展不可存续。我们不禁要问：难道必须要这样才能实现国民主权？",
+        "我们认为政客是不可信的。他们背后是资本集团，是各自阶级的利益，是商业公司包装出的塑料营销。国民拥有政治的主权，但国民不应该，也不必须把治理国家的技术工作交给通过这种虚假竞争取得职位的人。我们对一个人的认可，在当今时代可能来自所讲的那样，我们已经失去了对严肃信息严肃对待的能力。民主代表着什么？代表着主权在民。国家首先应该让国民来选择它的发展方向、它的价值优先级，以及哪些代价是可以接受的。只有在国民完成决定之后，行政机关才能够去寻找最有效、可靠和可持续的方法，去实现由国民共同决定出的目标。",
+        "而政客往往会导致一切付之一炬。这正是技术官僚所应该站出来的时刻。国民决定国家要往哪里去，政府负责组织国家前进，并将相关任务拆分并递交给各个技术官僚；技术官僚则决定要如何到达我们的目标。法团则负责调和阶级矛盾，让我们的社会能够长远发展。但不同于法西斯主义，用国家和民族作为法团调和的不可或缺一环，无疑是愚蠢的。我们应该让技术官僚依照科学做出判断。是的，不同选项都会有不同的取舍。那我们要留哪些，舍哪些呢？这就要看这一年国民所选择的目标了。技术官僚自然要做出符合国民民主目标的决策，那这便是民主的法团。"
+      ]},
+      { n:"02", title:"国家、国民与政治主权", en:"The State, Citizens and Political Sovereignty", paragraphs:[
+        "国家是提供公共服务并完成长期公共目标的行政工具，而它本身不应该有任何独立的政治意志。这和我们当今世界很多国家是不一样的。政府如果以国家意志、历史使命、民族意志所自居，那么它就是在取代国民民主表达的政治选择。国家最高的政治主权属于全体国民。国民必然要做出周期性的决定，决定国家应该追求什么，应该达到什么。",
+        "国民可以选择更加重视劳动者收入的时期，也可以选择更加重视企业投资的时期；可以选择扩大社会福利，也可以选择提高国防投入；可以选择加速工业的建设，同时也可以选择保护环境。而这个国家发展的答案，从来不，也不应该由技术官僚、官员们和政客们给出一个所谓“科学正确”的答案。技术官僚可以说明每一项选择都必然带来风险。可是那又如何呢？它代表的不是大多数人的声音。价值判断必然由国民完成。",
+        "那些老古董每天讲着让国民来选择谁来统治国民。可我们选出来的人最终会如何？睁开我们的眼睛看一看世界吧：腐败、独裁、集权正在迅速滋生。我们不应该选择谁来统治国民，因为最终还是让他们自己来做决定。他们可能花言巧语骗了我们，让我们选择他来当领袖，但他却不一定真的会做出我们期盼他所做的事情。所以，应该直接让我们来选择做什么事情，而不是选择谁来替我们做这个决定。这才是真正的民主，真正的一劳永逸的方法。"
+      ]},
+      { n:"03", title:"民主制度下的五年计划", en:"Five-Year Plans under Democracy", paragraphs:[
+        "我们不是苏俄，我们也不再相信列宁说的那一套了。但以五年作为一个基本的发展周期，未必是一件错误的事情。每个五年周期开始前，我们应该用民主授权形成若干个完整的国家计划，并再提交给全体国民进行表决。它并不是传统意义上的经济计划，我们注重的也不再仅仅是生产命令体系。",
+        "它所裁定的是我们在未来这些年中，技术官僚应该以什么态度去裁定国家；决定的是接下来这些年中法团要如何调节阶级矛盾；决定的是我们对于价值观的排序、对于公共支出的方向，以及重大的社会决策。哪一种方案值得执行，不再由经济学家决定，而是让我们，让人民，让公民，让国民来进行决定。民主才是客观。民主选择方案，而技术官僚不应该参政。他们应该做国民的仆人，应该为我们指明前进的路，但目的地应该让我们自己选择。"
+      ]},
+      { n:"04", title:"五级国民会议制度", en:"Five-Level National Civic Conference System", paragraphs:[
+        "相信有不少同袍看到前面关于人民选择提案的表述，又以为这是什么技术官僚主义的新马甲。当然不是。国政组织从来不应该掌握我们的路线。我们认为应该采取五级会议的制度，让参与者围绕具体问题提交数据、财政来源、执行方式、风险与预期结果，并经过演讲、反驳与现场判断来进行逐级筛选。这不是情绪的口号，这不是民族主义之类这些蛊惑人心的东西可以再大展拳脚的地方。这是理性的、客观的，却又是民主的。",
+        "我们应该把它压缩为基层、区域、专业、全国国策以及最终国家方向的五级筛选。而最终的选择必然由国民自己来完成。第一阶段，由社区、学校、工作场所、专业组织、劳动组织、企业组织以及普通国民提出国家目前存在的问题与未来政策的方向。第二阶段，在地方范围内进行方案的比较、辩论、反驳、合并和修改。第三阶段，当我们扩大到了行业范围，我们就可以让相似的方案合并，同时存在明显矛盾的方案也终将被淘汰和修正。",
+        "到了第四阶段，将零散的政策组合成能够覆盖财政、经济、住房、教育、能源、外交、社会保障等主要国家事务的完整提案。而最终，我们会获得几份由全国人民根据理性判断所得出的最终国家方案，也就是我们若干份候选的全国五年计划。而在会议结束后，将由全体国民直接选择。国家路线只能产生于国民在民主上的授权。"
+      ]},
+      { n:"05", title:"常设政府与行政国家", en:"Permanent Government and the Administrative State", paragraphs:[
+        "政府是一个永远存在的行政机关，它也不应该是某个政党的政治组织。政党应该被消灭，我们应该只有政府。所以原则上不应该再存在所谓的执政党和在野党。政党不应该拥有组阁、分配行政职位或控制国家机器的制度资格。社会团体可以宣传他们的理念，可以支持不同的五年计划，可以组织国民进行政治讨论。但是我们的行政是基于五级会议制度和直接民主选举的。",
+        "也就是说，当五年计划改变时，并不意味着整个国家的行政体系和行政人员都要进行改变。财政部门、交通部门、教育部门、外交和安全机关，它们还是原来的样子。它们变化的是被重新委派的任务，而这个任务正是由全体国民民主选举产生的。所谓的总统只不过是民主的仆人，是这套常设行政体系的协调者。他并没有自己的政治纲领，他也不应该有自己的政治纲领。他更没有任何独立于五年计划的政治授权。他要做的只是将国民的授权转化成国家的任务，并确保不同的技术官僚机关可以合作。"
+      ]},
+      { n:"06", title:"技术官僚体系", en:"The Technocratic System", paragraphs:[
+        "技术官僚拥有着高度的专业自主权，但是我们必须剥夺他们的政治主权。技术官僚制度在我们的历史中已多次出现，它的弊病一一展现。这些自大的家伙以为自己才可以决定国家的方向，而忽视了民主，这导致了国民为他们的错误判断而付出代价。所以他们不应该再拥有独立的政治主权。",
+        "所谓的技术自主，是指在民主的五年计划目标已经确定以后，政府不因为短期的舆论、私人关系、个人偏好或者政治宣传而修改专业的实施方案。比如，我们的国民大会决定要扩大铁路的建设，那么线路设计、安全标准、工程方案应该让技术官僚的专业机关来决定。如果我们决定要提高工人收入，那么如何采用最低工资、税收抵免、社会保险，也应该由相关的技术官僚负责研究。",
+        "他们负责的是政策的依据，是数据的来源，是风险的评估，是执行的成本，并最终给我们一个满意的结果。但他们没有资格去替我们回答或做出判断：这个社会目标值不值得追求。也不应该依赖于他们所谓的方程和函数。政治的选择权永远在国民的手里。"
+      ]},
+      { n:"07", title:"法团制度与阶级调和", en:"Corporatist Institutions and Class Reconciliation", paragraphs:[
+        "阶级之间存在着真实的利益冲突。法团主义常常以国家和民族作为第一要素，并以国家视角来解决阶级矛盾，但这是愚蠢的。我们确实应该建立制度化的法团体系，并以国家为主体解决阶级矛盾，但我们的依据应该是民选的五年计划和技术官僚的科学判断。",
+        "企业与投资者通过企业法团表达投资、利润、融资、税收、成本和经营稳定的需求。劳动者则通过劳动法团和工会来表达工资、就业、工作时间、福利和劳动条件的要求。行业组织表达不同产业的技术和发展要求。消费者也可能会有自己的想法。而这些法团将进入制度化的谈判，技术官僚担任的角色更像是协调者和政策的设计者。",
+        "就像我们前面所提到的，它的判断依据来自国民的五年计划。就是说，它不能选择自己认为哪个阶级应该获得优先，或者什么是正确的，而应该来自五年计划所规定的优先关系。如果国民在这五年中选择的是一个明显提高劳动者利益的计划，那么在无法兼顾的利益冲突中，劳动收入、劳动保障和就业条件就会获得更高的权重。而如果国民选择的是鼓励企业投资的计划，那么对于投资环境、企业利益和资本积累都会有更多的权重。",
+        "也就是说，任何阶级都没有拥有正确性，而只有民主来看谁有正确性。法团制度的职责就是在这个民主的授权之下，寻找能够把冲突控制在谈判范围内的方案，而不导致最终的阶级冲突大爆发。因此，阶级调和本质上是民主授权的产物，而不是法西斯主义中民族大义或国家利益的空洞口号。我们如果假装阶级矛盾不存在，那无疑是一种愚蠢的表现。阶级调和是构成民主公民主义的重要部分。"
+      ]},
+      { n:"08", title:"伦理国会与国家监察", en:"Ethical Congress and State Oversight", paragraphs:[
+        "国家设立单独的伦理国会。伦理国会不是政府，不制定五年计划，也不管理经济。我们需要一个单独的监察机关来阻止我们的政府腐败。五级国民会议、常设行政政府、总统、技术官僚机构、法团、军队。我们不相信他们。",
+        "伦理国会应该依据宪法和已经国民确认的基本伦理宪章进行审查。它不得自己无限创造新的标准，又反过来使用它们限制民主。它的职责在于反贪腐、程序监察、利益冲突调查、滥用职权的调查、基本权利保护，以及对国家机关违反宪制行为的调查。",
+        "伦理国会也应拥有独立的调查机关，其将类似于高级联邦调查机关，拥有调查能力，也可以依法调查政府高级官员、技术官僚、法团负责人以及其他公权力持有者。它可以拥有武装的执法人员，但我们不希望它拥有军事武装力量，而是将它限定于执法力量的机构范畴之中。"
+      ]},
+      { n:"09", title:"法律、司法与权力约束", en:"Law, Judiciary and Constraints on Power", paragraphs:[
+        "法院将是对于普通法律纠纷、刑事审判、行政诉讼以及对强制措施司法授权的最终权威。伦理国会并不能担任审判机关，它的作用是调查与提出指控。刑事定罪和永久权利剥夺必须依靠司法程序，而宪法也将高悬于一切之上。政府、技术官僚、伦理国会、军队和法团都必须受到法律的约束。",
+        "民主公民主义承认法律高于所有国家机构，也高于个人、财富、功劳与统治集团的私意。"
+      ]},
+      { n:"10", title:"政府失效与技术托管", en:"Government Failure and Technocratic Trusteeship", paragraphs:[
+        "我们承认，常设的行政政府可能会发生严重的腐败、行政瘫痪、经济治理的崩溃、战争失灵，或者其他在事实上已经无法让它继续完成基本国家职能的情况。我们将它称之为事实政府失效。原则上，没有任何一个单一的机构拥有宣布政府失效的权利。总统可以承认这一事实，但是它也并非是必要条件。伦理国会也没有办法用一句话来罢免政府。",
+        "当常设政府事实上已经无法治理国家时，应该由技术官僚进行短暂托管，包括恢复财政、维持能源、维持交通、保证食品与基本商品的供应、恢复医疗与公共服务、稳定货币与金融体系，并让政府逐步恢复正常的行政能力。它在原则上继续执行现有的民主授权，也就是五年计划。假如原五年计划已经由于危机无法再事实上实施，则必须再次重启国民的政治程序，调整新的计划。"
+      ]},
+      { n:"11", title:"军队与宪政保险机制", en:"The Military and Constitutional Safeguards", paragraphs:[
+        "正常情况下，军队不应该参与政府的治理。它必须服从合法的国家行政体系。但我们必须假设，任何国家机关都有腐败、越权或夺取永久权力的可能。因此在政府崩溃时，即便是技术官僚进行托管，国家也有可能滑向技术官僚的独裁。",
+        "所以我们必须形成宪政的保险结构。技术官僚负责治理，伦理国会负责监察，而军队则要防止武装夺权和维持国家安全。甚至如果他们三个都滑向了腐败的深渊，至少这种可怖的三权分立还能让稳定的政府多维持一些时日。当任何一方试图突破自己的权力边界时，另外两方仍具有阻止国家完全落入单一集团控制的能力。而当正常行政能力恢复之后，技术托管的终止也将代表国家重新进入正常的五年计划行政体系之中。"
+      ]},
+      { n:"12", title:"民族、文化与反进步主义", en:"Nation, Culture and Anti-Progressivism", paragraphs:[
+        "新右翼在文化观念上必须采取反进步主义的立场。我们不应该主动，也不应该根据性别、性取向、民族或私人生活方式，用法律降低任何公民的基本权利。但以身份政治或身份群体重新划分公民的政治价值是不合理的。法律要保护每一个个人。同性恋者、异性恋者、不同民族、不同宗教以及其他的社会群体，都应该有同样的国民和公民资格。少数身份不会因此获得较少权利，但同样也不应该因为他们是少数身份，就获得高于其他国民的制度性政治权重。",
+        "公共政策必须先将每一个个人都视为公民。我们反对国家主动通过文化工程不断重构社会价值，也反对以政治正确、身份象征或道德标签，将公民划分成一个个身份政治团体，来代替实际上有效的公共政策。或许文化会变化，或许生活也会变化。我们也必然需要一直持续批评传统文化，这是我们作为公民的自由。但国家作为一个行政机关，它怎么配拥有将一种文化潮流宣布为政治道德的权力呢？"
+      ]},
+      { n:"13", title:"宗教自由与普遍人权", en:"Religious Freedom and Universal Human Rights", paragraphs:[
+        "我们承认宗教信仰的自由。公民可以信仰伊斯兰教、基督教、佛教以及任何其他宗教，也可以不信仰任何宗教。国家不应该因为一个人的宗教而降低他的法律地位。但是宗教自由也不能够成为剥夺另一个人的基本权利的理由。因此，我们必须对伊斯兰教以及其他宗教传统中任何与女性平等、儿童保护、身体自主和性同意原则冲突的规范采取明确的批判立场。这种批判针对的是具体制度和教义的实践，但我们不能针对穆斯林以及其他宗教信徒个人。",
+        "如果一个女性自愿佩戴宗教服饰，如黑头巾，是个人的自由；但如果强迫她去佩戴宗教服饰，就是对个人自由的侵犯。成年人自愿遵守宗教生活也是个人的自由，但是父母、配偶、宗教团体或社区不得，也不可以以宗教为理由强迫个人接受婚姻、性行为、服装规范或者身体处罚。童婚、强迫婚姻、婚内强奸、对儿童的性行为，以及以宗教权威压迫女性的制度，不能因为其有宗教传统而获得法律的赦免。",
+        "自由是要用人权和民主所争取来的。我们尊重你信仰宗教，但假若你要以宗教之名凌驾于他人的民主自由之上，那你才是那个法西斯，才是那个极右翼。基本人权必然优先于宗教传统。"
+      ]},
+      { n:"14", title:"性犯罪、儿童保护与身体权利", en:"Sexual Offences, Child Protection and Bodily Rights", paragraphs:[
+        "强奸罪采用完全的性别中立原则。任何性别都有可能成为受害者，任何性别也都有可能成为犯罪者。法律不应该因为婚姻关系、恋爱关系、过去发生的行为，或者受害人与行为人的性别组合，而强行取消强奸罪的成立。法定的性同意年龄原则必须在十五岁以上。成年人或者明显年长者与未满十五岁的儿童发生性行为，在原则上构成法定强奸或等同严重性犯罪。",
+        "但是对于年龄相近的未成年人，则应该设立近龄例外。该例外必须同时满足双方均属于接近年龄的未成年人，双方具有实际理解和表达同意的能力，不存在暴力、威胁、欺骗、药物控制及其他强迫，不存在金钱、住房、毒品或其他利益交换造成的控制，年龄差不得超过法律规定的严格范围。因此，不能简单规定只要双方都未满十五岁，就说明双方都没有构成强奸罪，因为这可能会致使年龄较大的未成年人对年幼儿童的侵害。",
+        "我们认为，对于严重强奸、连续性性侵害以及针对儿童的性犯罪，必须采取极重的刑罚。对于部分或重复性的性犯罪者，可以讨论由法院判处化学阉割或药物性欲抑制措施。当然，这一制度必须通过独立的司法判决、医学评估和复核，不能由行政机关或伦理国会自行实施。这一刑罚涉及身体的完整权、医学伦理以及国家刑罚权的边界。我们必须在宪政文本中保证它的合法性，以及对于每一位公民权利，即便是罪犯的权利的审查。"
+      ]}
+    ];
 
-    const revealItems = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    revealItems.forEach((item, index) => {
-      item.style.transitionDelay = `${Math.min(index % 5, 4) * 55}ms`;
-      revealObserver.observe(item);
-    });
+    const i18n = {
+      "zh-Hans": { lang:"zh-Hans", brand:"公民新右翼学术讨论档案", utility:"个人学术档案 · 仅供阅读与讨论", menu:"打开章节目录", toc:"章节目录", homeTitle:"公民新右翼", sub:"学术讨论档案 · 14 章", search:"搜索章节关键词", searchBtn:"搜索", directory:"打开章节目录", first:"阅读第一章", footer:"档案版本：14 章 · 删除原结述章节 · 内容仅供学术阅读", approach:"走出社会主义与资本主义的二分框架，提出一种新的右翼概念。这里的 The Third Approach 不等同于第三位置（Third Position），反对法西斯主义，也不认同第三条路（The Third Way）。它把民主公民主义与去民族主义化的法团主义放在同一组学术问题中讨论。", home:"回到档案首页", prev:"上一章", next:"下一章", noResult:"没有找到对应章节", result:"匹配章节", disclaimerTitle:"进入前说明", p1:"本档案是个人对政治思想、制度概念与政治哲学文本的学术整理，不代表任何组织、政党、政府或现实政治行动，也不构成动员、组织、政策指令或实施方案。", p2:"作者明确维护中华人民共和国现状、中国共产党领导、国家统一与社会稳定。页面内容仅用于概念阅读、比较与批评，不应被理解为要求改变中国现有政治秩序。", p3:"部分概念来自个人思想实验，可能存在争议、遗漏或内部张力。请将其当作可检验、可质疑的档案材料阅读。", wait:"请等待 {n} 秒", confirm:"我已阅读，进入档案" },
+      "zh-Hant": { lang:"zh-Hant", brand:"公民新右翼學術討論檔案", utility:"個人學術檔案 · 僅供閱讀與討論", menu:"打開章節目錄", toc:"章節目錄", homeTitle:"公民新右翼", sub:"學術討論檔案 · 14 章", search:"搜尋章節關鍵詞", searchBtn:"搜尋", directory:"打開章節目錄", first:"閱讀第一章", footer:"檔案版本：14 章 · 移除原結述章節 · 內容僅供學術閱讀", approach:"走出社會主義與資本主義的二分框架，提出一種新的右翼概念。這裡的 The Third Approach 不等同於第三位置（Third Position），反對法西斯主義，也不認同第三條路（The Third Way）。它把民主公民主義與去民族主義化的法團主義放在同一組學術問題中討論。", home:"回到檔案首頁", prev:"上一章", next:"下一章", noResult:"沒有找到對應章節", result:"匹配章節", disclaimerTitle:"進入前說明", p1:"本檔案是個人對政治思想、制度概念與政治哲學文本的學術整理，不代表任何組織、政黨、政府或現實政治行動，也不構成動員、組織、政策指令或實施方案。", p2:"作者明確維護中華人民共和國現狀、中國共產黨領導、國家統一與社會穩定。頁面內容僅用於概念閱讀、比較與批評，不應被理解為要求改變中國現有政治秩序。", p3:"部分概念來自個人思想實驗，可能存在爭議、遺漏或內部張力。請將其當作可檢驗、可質疑的檔案材料閱讀。", wait:"請等待 {n} 秒", confirm:"我已閱讀，進入檔案" },
+      en: { lang:"en", brand:"Civic New Right Academic Archive", utility:"Personal academic archive · For reading and discussion", menu:"Open chapter directory", toc:"Chapter directory", homeTitle:"Civic New Right", sub:"Academic discussion archive · 14 chapters", search:"Search chapter keywords", searchBtn:"Search", directory:"Open chapter directory", first:"Read chapter one", footer:"Archive edition: 14 chapters · Original concluding chapter removed · For academic reading", approach:"Moving beyond the socialism–capitalism binary, this archive considers a new concept of the right. The Third Approach is not the Third Position, rejects fascism, and does not endorse The Third Way. It places democratic civicism and de-nationalized corporatism within one field of academic discussion.", home:"Return to archive home", prev:"Previous chapter", next:"Next chapter", noResult:"No matching chapter", result:"Matching chapters", disclaimerTitle:"Before entering", p1:"This archive is a personal academic organization of political ideas, institutional concepts, and political-philosophy texts. It does not represent any organization, party, government, or real-world political action, and is not a mobilization document, organizational instruction, policy directive, or implementation plan.", p2:"The author expressly maintains the present situation of the People's Republic of China, the leadership of the Communist Party of China, national unity, and social stability. The page is for conceptual reading, comparison, and criticism only, and should not be understood as a demand to change China's existing political order.", p3:"Some concepts are personal thought experiments and may contain controversy, omissions, or internal tensions. Read them as materials open to testing and criticism.", wait:"Please wait {n} seconds", confirm:"I have read this; enter the archive" }
+    };
+
+    const state = { lang: localStorage.getItem("tta-lang") || "zh-Hans", query:"" };
+    const $ = id => document.getElementById(id);
+    const t = () => i18n[state.lang];
+    function currentChapter() { return new URLSearchParams(location.search).get("chapter"); }
+    function setLanguage(value) { state.lang=value; localStorage.setItem("tta-lang",value); document.documentElement.lang=t().lang; renderChrome(); render(); }
+    function renderChrome() {
+      const l=t(); $("brandText").textContent=l.brand; $("utilityText").textContent=l.utility; $("menuButton").setAttribute("aria-label",l.menu); $("tocHeading").textContent=l.toc; $("language").value=state.lang;
+      $("disclaimerTitle").textContent=l.disclaimerTitle; $("disclaimerP1").textContent=l.p1; $("disclaimerP2").textContent=l.p2; $("disclaimerP3").textContent=l.p3; $("confirm").textContent=l.confirm;
+    }
+    function go(chapter) { const url=chapter ? "?chapter="+chapter : location.pathname; history.pushState({}, "", url); render(); window.scrollTo(0,0); }
+    function openDrawer() { $("drawerLayer").classList.remove("hidden"); requestAnimationFrame(()=>$("drawer").classList.add("open")); }
+    function closeDrawer() { $("drawer").classList.remove("open"); setTimeout(()=>$("drawerLayer").classList.add("hidden"),220); }
+    function renderToc() {
+      $("toc").innerHTML=chapters.map(c=>'<button data-chapter="'+c.n+'"><span class="toc-num">'+c.n+'</span><span class="toc-title">'+(state.lang==="en"?c.en:c.title)+'</span></button>').join("");
+      $("toc").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ closeDrawer(); go(b.dataset.chapter); }));
+    }
+    function render() {
+      renderToc(); const l=t(); const id=currentChapter(); const chapter=chapters.find(c=>c.n===id);
+      if (!chapter) {
+        $("app").innerHTML='<section class="home"><img class="home-logo" src="assets/tta-logo.png" alt="TTA"><h1>'+l.homeTitle+'</h1><div class="subtitle">'+l.sub+'</div><form class="search" id="searchForm"><input id="searchInput" type="search" placeholder="'+l.search+'" aria-label="'+l.search+'"><button>'+l.searchBtn+'</button></form><div id="searchResults"></div><div class="home-actions"><button class="action" id="directoryBtn">'+l.directory+'</button><button class="action primary" id="firstBtn">'+l.first+'</button></div><div class="approach">'+l.approach+'</div><div class="home-footer">'+l.footer+'</div></section>';
+        $("directoryBtn").addEventListener("click",openDrawer); $("firstBtn").addEventListener("click",()=>go("01"));
+        $("searchForm").addEventListener("submit",e=>{ e.preventDefault(); const q=$("searchInput").value.trim().toLowerCase(); if(!q){ $("searchResults").innerHTML=""; return; } const hits=chapters.filter(c=>(c.title+" "+c.en+" "+c.paragraphs.join(" ")).toLowerCase().includes(q)); $("searchResults").innerHTML=hits.length?'<div class="result-list">'+hits.map(c=>'<button data-chapter="'+c.n+'"><strong>'+c.n+'</strong>'+(state.lang==="en"?c.en:c.title)+'</button>').join("")+'</div>':'<div class="home-footer">'+l.noResult+'</div>'; $("searchResults").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.chapter))); });
+      } else {
+        const idx=chapters.indexOf(chapter); const heading=state.lang==="en"?chapter.en:chapter.title;
+        $("app").innerHTML='<article class="chapter-page"><header class="chapter-head"><img src="assets/tta-logo.png" alt="TTA"><div><div class="eyebrow">'+l.brand+'</div><h1>'+chapter.n+' · '+heading+'</h1><p>'+((state.lang==="en"&&chapter.summaryEn)||chapter.summary||"")+'</p></div></header><section class="chapter-body"><h2>'+heading+'</h2>'+chapter.paragraphs.map(p=>'<p>'+p+'</p>').join("")+'<div class="chapter-note">'+l.approach+'</div></section><nav class="chapter-nav"><button '+(idx===0?"disabled":"")+' id="prevBtn">← '+l.prev+'</button><button id="homeBtn">'+l.home+'</button><button '+(idx===chapters.length-1?"disabled":"")+' id="nextBtn">'+l.next+' →</button></nav></article>';
+        $("prevBtn").addEventListener("click",()=>idx>0&&go(chapters[idx-1].n)); $("homeBtn").addEventListener("click",()=>go("")); $("nextBtn").addEventListener("click",()=>idx<chapters.length-1&&go(chapters[idx+1].n));
+      }
+    }
+    function showDisclaimer() {
+      if (sessionStorage.getItem("tta-disclaimer-seen")) return;
+      $("disclaimer").classList.remove("hidden"); $("confirm").disabled=true; let seconds=3; $("countdown").textContent=t().wait.replace("{n}",seconds);
+      const timer=setInterval(()=>{ seconds--; if(seconds>0) $("countdown").textContent=t().wait.replace("{n}",seconds); else { clearInterval(timer); $("countdown").textContent=""; $("confirm").disabled=false; } },1000);
+    }
+    $("brandButton").addEventListener("click",()=>go("")); $("menuButton").addEventListener("click",openDrawer); $("closeDrawer").addEventListener("click",closeDrawer); $("drawerBackdrop").addEventListener("click",closeDrawer); $("language").addEventListener("change",e=>setLanguage(e.target.value)); $("confirm").addEventListener("click",()=>{ sessionStorage.setItem("tta-disclaimer-seen","1"); $("disclaimer").classList.add("hidden"); });
+    window.addEventListener("popstate",render); renderChrome(); render(); showDisclaimer();
   </script>
 </body>
 </html>
